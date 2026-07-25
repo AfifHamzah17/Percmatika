@@ -1,0 +1,175 @@
+Disection kedua yaitu "RINGKASAN BULAN INI"
+ada 4 stat card
+
+1. Estimasi keuntungan (judul atas)
+Rp 18,4 jt (besar)
+Expected profit optimal (kecil dibawahnya)
+
+2. Total produksi reguler(judul atas)
+52 unit (besar)
+dari 6 jenis produk(kecil dibawahnya)
+
+3. Jam lembur dibutuhkan(judul atas)
+38 jam (besar)
+dari maks 200 jam/bulan (kecil dibawahnya)
+
+4. Utilisasi kapasitas (judul atas)
+82%(besar)
+reguler + lembur (kecil dibawahnya)
+
+Section ke 3
+RENCANA PRODUKSI PER PRODUK
+Card produk #1
+( Judul di ujung kiri) Sajadah, (Badge disamping kanannya judul, contoh isi Produk utama Ramadhan), + Rp 6,2 jt estimasi (diujung kanan)
+
+4 stat card juga
+1. Produksi reguler 
+12
+unit (x_j)
+
+2., Tambah lembur 
+ 4 
+ unit (y_js)
+
+3. Pengadaan cepat 
+-
+ tidak perlu (e_js)
+
+4. Backorder diterima
+0
+ unit (b js)
+
+"quote"
+Yang perlu dilakukan(atas)
+(Siapkan bahan sajadah paling lambat 14 Feb (lead time 14 hari) | Prioritaskan lembur minggu ke-3 & ke-4 Maret
+Total 16 unit mencukupi skenario P50 (prediksi 15 unit) (isi quote))
+"akhir quote"
+
+chart Skenario permintaan
+tulisan skenario permintaan (20% dari lebar)
+3 komponen progressbar (80% dari lebar)
+1. P10 Progressbar (kode warna #b5d4f4) contohnya P10 (pesimis): 9 unit
+2. P50 Progressbar (kode warna #378add) contohnya P50 (realistis): 15 unit
+3. P90 Progressbar (kode warna #0c447c) contohnya P90 (optimis): 20 unit
+
+baru ada juga card produk lain contohnya
+Card produk #2
+( Judul di ujung kiri) Totebag, (Badge disamping kanannya judul, contoh isi Perlu Perhatian), + Rp 5,8 jt estimasi (diujung kanan)
+
+4 stat card juga
+1. Produksi reguler 
+2
+unit (x_j)
+
+2., Tambah lembur 
+1
+unit (y_js)
+
+3. Pengadaan cepat 
+Pertimbangkan
+batting sulit (e_js)
+
+4. Backorder diterima
+1
+unit (b js)
+
+"quote"
+Mengapa hanya 3 unit?(atas)
+(Model memilih alokasi jam kerja lebih banyak ke Sajadah karena margin lebih tinggi per jam. Selimut membutuhkan
+56 jam/unit - jika diproduksi lebih, kapasitas Sajadah berkurang & total profit turun. 1 unit backorder dapat diterima
+tanpa merusak profit keseluruhan. (isi quote))
+"akhir quote"
+
+### PERLU DIPERHATIKAN card produk #3 dan card produk #4 itu dibagi 50%:50% lebarnya jadi berdampingan beda debgab card#1 dan card #2 ###
+Card produk #3
+Totebag (judul dikiri) & (badge status dikanan) Aman 
+2 stat card
+1. reguler 
+10
+unit
+
+2. lembur 
+2
+unit 
+
+"<p> Kapasitas cukup, tidak perlu pengadaan cepat"
+
+Card produk #4
+Pouch (judul dikiri) & (badge status dikanan) Aman 
+2 stat card
+1. reguler 
+18
+unit
+
+2. lembur 
+0
+unit 
+
+"<p> Waktu produksi pendek, kapasitas masih sisa"
+
+section 4
+JADWAL PENGADAAN BAHAN BAKU
+isi cardnya
+
+"<P> Apa yang harus dipesan dan kapan"
+Kain motif sajadah                      (badge: Reguler) Pesan paling lambat 14 Feb
+Batting/dakron quilting (selimut)       (badge: Ekspres) Pesan sekarang - lead time 8 hari (bewarna merah teksnya karena perlu perhatian khusu klo reghuler hijau)
+Kain kanvas totebag                     (badge: Reguler) Pesan paling lambat 20 Feb
+Kain pouch (standar)                    (badge: Reguler) Tersedia lokal, bisa pesan kapan saja
+
+
+jangan lupa tambah 2 lagi
+[
+  "Totebag",
+  "Selimut",
+  "Sarung Bantal",
+  "Taplak Meja",
+  "Pouch",
+  "Sajadah"
+]
+
+yag belum ada sarung bantal dan taplak meja buat 50% 50% juga dan buat dinamis ya logiknaya jadi bisa memindahkan antara produk utama dan lauinnya sesuai juga tanggal maka dari itu pakai juga hijridate untuk buat otomatis keatas
+
+Ini gambaran lengkap dashboard yang seharusnya dibangun. Ada beberapa hal yang perlu
+diperhatikan pengembang dari mockup ini:
+Prinsip desain yang dipakai — semua angka diterjemahkan ke bahasa yang bisa dipahami ibu
+pengrajin. Variabel matematis x_j, y_js, e_js, b_js tetap ditampilkan kecil di bawah sebagai
+referensi akademis, tapi yang besar justru angka unitnya. Keputusan "mengapa hanya 3 unit
+Selimut?" dijawab langsung di kartu — jangan biarkan UMKM menebak-nebak.
+Bagian yang paling penting secara akademis adalah kotak kuning di kartu Selimut — di
+situlah logika optimasi dijelaskan kepada pengguna: "Model memilih mengalokasikan jam kerja
+lebih banyak ke Sajadah karena margin lebih tinggi per jam." Inilah bukti bahwa sistem bukan
+sekadar "ikuti forecast" tapi betul-betul mengoptimasi alokasi sumber daya antar produk.
+Jadwal pengadaan bahan baku di bagian bawah adalah output penting yang belum pernah ada
+di aplikasi sekarang — ini langsung berasal dari parameter lead time di Sheet 2 yang sudah
+dibuat, dihitung mundur dari tanggal produksi yang direncanakan.
+Untuk pengembang, mockup ini bisa menjadi spesifikasi UI yang konkret. Struktur datanya
+jelas: satu kartu per produk, empat sel angka (x_j, y_js, e_js, b_js), satu kotak penjelasan
+keputusan, dan satu bagian pengadaan global di bawah. Semua angka berasal dari output solver
+TSSP–PHA, bukan dari rule-based seperti yang sekarang ada.
+Ini bedanya dengan aplikasi forecasting biasa. Aplikasi forecasting biasa hanya menjawab "bulan
+depan demand Sajadah kira-kira 18 unit" — lalu UMKM memutuskan sendiri mau produksi
+berapa. Sistem ini seharusnya menjawab lebih jauh dari itu: "produksi Sajadah 15 unit reguler +
+3 unit lembur, jangan produksi lebih dari itu meskipun demand bisa sampai 20 unit, karena kalau
+kapasitas dipakai lebih banyak untuk Sajadah maka Selimut dan Totebag tidak kebagian dan
+total profit justru turun."
+Keputusan alokasi antar produk itulah inti optimasinya — dan itulah yang membuat fungsi
+objektif TSSP menjadi penting. Angka x_j (produksi reguler) yang keluar dari PHA bukan
+sekadar "ikuti forecast", tapi sudah merupakan solusi yang memaksimalkan Σ π_s [revenue −
+semua biaya] atas seluruh skenario musiman secara bersamaan.
+Jadi kalau pengembang bertanya "kenapa angka rekomendasi produksi Sajadah lebih rendah dari
+prediksi P50-nya?", jawabannya karena PHA memutuskan bahwa jam kerja lebih
+menguntungkan dialokasikan ke Selimut di bulan itu — dan itu adalah keputusan yang sudah
+dibuktikan secara matematis menghasilkan expected profit tertinggi.
+Ini juga yang perlu ditulis eksplisit di artikel Q2: bahwa output aplikasi bukan demand forecast
+yang diteruskan ke UMKM, melainkan production plan yang optimal yang dihasilkan dengan
+mempertimbangkan forecast sebagai input — perbedaan yang krusial dari sisi kontribusi ilmiah.
+mockup dashboard yang realistis — tampilannya harus sederhana dan mudah dipahami oleh
+pemilik UMKM, bukan hanya peneliti.
+
+Justru yang membedakan penelitian ini dari aplikasi forecasting biasa. Kalau hanya prediksi
+demand lalu disarankan "produksi segitu", itu cuma forecasting app. Yang membuat ini bernilai
+secara akademis dan praktis adalah bahwa angka rekomendasi produksi sudah merupakan
+hasil optimasi — bukan sekadar mengikuti prediksi demand.
+Mari saya gambarkan logika lengkapnya agar bisa dikomunikasikan ke pengembang dengan
+jelas.
