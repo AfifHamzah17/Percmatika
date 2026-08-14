@@ -1,26 +1,27 @@
-/**
- * Dashboard Presenter — jembatan antara Model dan View.
- *
- * Sangat tipis: panggil useDashboardModel() → render DashboardView.
- * useEffect hanya menjalankan checkCacheOnly (ringan, tanpa modal).
- * Hitung berat (runOptimization) HANYA terjadi saat user klik tombol.
- */
-
+// src/features/dashboard/dashboard-presenter.jsx
 import { useEffect } from "react";
 import { useDashboardModel } from "./dashboard-model";
 import DashboardView from "./dashboard-view";
 import HitungLoadingModal from "../../components/modal/HitungLoadingModal";
 
 export default function DashboardPresenter() {
-  const { data, isCheckingCache, isComputing, error, runOptimization, checkCacheOnly } = useDashboardModel();
+  const {
+    data,
+    isCheckingCache,
+    isComputing,
+    error,
+    runOptimization,
+    checkCacheOnly,
+    // BARU
+    dataStatus,
+    fetchDataStatus,
+  } = useDashboardModel();
 
-  // Saat mount atau ganti bulan → cek cache (ringan, tanpa modal).
-  // checkCacheOnly berubah hanya saat targetDate/umkm.nama berubah,
-  // jadi tidak ada pemanggilan ulang saat pindah tab balik ke dashboard
-  // (selama bulan tetap sama).
+  // Saat mount atau ganti bulan → cek cache + data status
   useEffect(() => {
     checkCacheOnly();
-  }, [checkCacheOnly]);
+    fetchDataStatus();
+  }, [checkCacheOnly, fetchDataStatus]);
 
   return (
     <>
@@ -30,6 +31,9 @@ export default function DashboardPresenter() {
         error={error}
         data={data}
         onRefresh={runOptimization}
+        // BARU
+        dataStatus={dataStatus}
+        fetchDataStatus={fetchDataStatus}
       />
     </>
   );
